@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Yuffie - Kinetic Interface v4</title>
+    <title>Pratrxx - Kinetic Interface v4</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
         /* --- ESTILOS GENERALES --- */
@@ -44,7 +44,7 @@
             transition: all 0.3s ease;
         }
 
-        /* --- VIDEO DE FONDO (YouTube) con animación de desenfoque --- */
+        /* --- VIDEO DE FONDO (MP4) con animación de desenfoque --- */
         .video-wrapper {
             position: absolute;
             top: -15%;
@@ -67,6 +67,7 @@
         #bg-video {
             width: 100%;
             height: 100%;
+            object-fit: cover;
             border: none;
             pointer-events: none;
             opacity: 0.6;
@@ -564,13 +565,16 @@
 
 <div class="canvas-container" id="main-canvas">
 
-    <!-- VIDEO WRAPPER -->
+    <!-- VIDEO WRAPPER (MP4 nativo) -->
     <div class="video-wrapper">
-        <iframe id="bg-video"
-            src="https://www.youtube-nocookie.com/embed/x4B4iF5PIVU?enablejsapi=1&controls=0&disablekb=1&loop=1&playlist=x4B4iF5PIVU&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&fs=0"
-            allow="autoplay; encrypted-media"
-            frameborder="0">
-        </iframe>
+        <video id="bg-video"
+            src="https://cdn.jsdelivr.net/gh/pratrx-web/pratrx@main/youtube-video.mp4"
+            muted
+            loop
+            playsinline
+            preload="auto"
+            style="width:100%; height:100%; object-fit:cover; border:none; pointer-events:none; opacity:0.6; transform:scale(1.05);">
+        </video>
     </div>
 
     <!-- OVERLAY DE INICIO (WARNING) -->
@@ -602,7 +606,7 @@
             <br>
             <div class="numeric-badge">1542991141</div>
             
-            <!-- SOCIAL PLAYER (reemplaza el reproductor de audio) -->
+            <!-- SOCIAL PLAYER -->
             <div class="social-player">
                 <a href="https://youtube.com/@pratrxx" target="_blank" rel="noopener noreferrer" class="social-row">
                     <span>▶</span>
@@ -660,11 +664,26 @@
     const charLayer = document.getElementById('character-layer');
     const overlay = document.getElementById('audioStartOverlay');
     const startBtn = document.getElementById('startBtn');
+    const video = document.getElementById('bg-video');
 
     // --- OVERLAY DE INICIO ---
     function startExperience() {
         overlay.classList.add('hidden');
-        // El video se inicia automáticamente gracias a la API de YouTube
+        // Reproducir el video con audio (quitamos muted si estaba)
+        video.muted = false;
+        video.play().then(() => {
+            // Iniciar fade in de audio después de 1s (sincronía con desenfoque)
+            setTimeout(fadeInAudio, 1000);
+        }).catch(err => {
+            // Si falla, intentamos de nuevo con muted (por si acaso)
+            console.warn('Reproducción automática bloqueada, reintentando con muted...');
+            video.muted = true;
+            video.play().then(() => {
+                // Si se reproduce con muted, forzamos unmute y fade
+                video.muted = false;
+                setTimeout(fadeInAudio, 1000);
+            });
+        });
     }
 
     startBtn.addEventListener('click', (e) => {
@@ -677,6 +696,21 @@
             startExperience();
         }
     });
+
+    // --- FADE DE AUDIO (subida progresiva de volumen) ---
+    function fadeInAudio() {
+        let volume = 0;
+        video.volume = 0;
+        const step = () => {
+            volume += 0.1; // 10 pasos hasta 1.0
+            if (volume > 1.0) volume = 1.0;
+            video.volume = volume;
+            if (volume < 1.0) {
+                setTimeout(step, 600); // 10 * 600 = 6s
+            }
+        };
+        step();
+    }
 
     // --- PARALLAX (mouse y touch) ---
     let mouseX = 0, mouseY = 0;
@@ -760,46 +794,6 @@
         requestAnimationFrame(animatePetals);
     }
     animatePetals();
-
-    // --- YOUTUBE PLAYER API (para controlar el audio y la reproducción) ---
-    var player;
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('bg-video', {
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-    }
-
-    function onPlayerReady(event) {
-        // Iniciar con volumen 0
-        event.target.setVolume(0);
-        // Reproducir el video
-        event.target.playVideo();
-        // Iniciar el fade-in de audio después de 1 segundo (para sincronizar con el desenfoque)
-        setTimeout(function() {
-            fadeInAudio();
-        }, 1000);
-    }
-
-    function fadeInAudio() {
-        let volume = 0;
-        const step = () => {
-            volume += 10;
-            if (volume > 100) volume = 100;
-            player.setVolume(volume);
-            if (volume < 100) {
-                setTimeout(step, 600); // 10 pasos * 600ms = 6 segundos
-            }
-        };
-        step();
-    }
-
-    // Cargar la API de YouTube de forma asíncrona
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 </script>
 
 </body>
