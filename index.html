@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-<title>notToshu — skip</title>
+<title>Japan Scene — Night</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,19 +81,19 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-     LEFT STACK — flex column containing eq (top) + socials (below)
-     Never overlaps because flexbox stacks them.
+     LEFT STACK — anchored above the boy's head, centered
      ═══════════════════════════════════════════════════════════ */
   .left-stack {
     position: absolute;
-    right: 100%;                 /* anchored just left of the boy */
-    bottom: 20%;
-    margin-right: 18px;
+    left: 50%;
+    bottom: 100%;                /* sits above the boy's head */
+    transform: translateX(-50%); /* centered horizontally */
+    margin-bottom: 14px;         /* small gap above the head */
     z-index: 6;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;       /* right-align both children */
-    gap: 16px;                   /* clean gap between eq and socials */
+    align-items: center;         /* center both children */
+    gap: 12px;
     pointer-events: none;
     white-space: nowrap;
   }
@@ -113,37 +113,27 @@
   .eq-label { font-size: 15px; font-weight: 500; color: #ffb98a; line-height: 1; }
   #equalizer { display: block; width: 110px; height: 24px; }
 
-  /* ───────── Socials (below the equalizer) ───────── */
+  /* ───────── Socials (below the equalizer, above head) ───────── */
   .socials {
-    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
     font-weight: 500;
     letter-spacing: 0.06em;
     pointer-events: auto;
   }
-  .socials::after {
-    content: "";
-    position: absolute;
-    right: -9px;
-    top: 12%; bottom: 12%;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(255, 185, 138, 0.55), transparent);
-    pointer-events: none;
-  }
   .social {
     display: inline-flex; align-items: center; gap: 9px;
-    padding: 6px 13px 6px 9px; border-radius: 999px;
+    padding: 5px 12px 5px 8px; border-radius: 999px;
     background: rgba(22, 18, 30, 0.9);
     border: 1px solid rgba(255, 200, 140, 0.22);
     color: #f3ead4; text-decoration: none; font-family: inherit;
-    font-size: 15px; line-height: 1; white-space: nowrap;
+    font-size: 14px; line-height: 1; white-space: nowrap;
     transition: color .2s ease, border-color .2s ease, transform .2s ease;
   }
-  .social:hover { color: #ffb98a; border-color: rgba(255, 185, 138, 0.6); transform: translateX(-3px); }
-  .social-icon { display: inline-flex; width: 18px; height: 18px; flex-shrink: 0; color: inherit; }
+  .social:hover { color: #ffb98a; border-color: rgba(255, 185, 138, 0.6); transform: translateY(-2px); }
+  .social-icon { display: inline-flex; width: 16px; height: 16px; flex-shrink: 0; color: inherit; }
   .social-icon svg { width: 100%; height: 100%; display: block; }
 
   /* ───────── Signature ───────── */
@@ -281,7 +271,7 @@
     z-index: 4;
   }
 
-  /* ───────── Now-playing pill (top-left, unchanged) ───────── */
+  /* ───────── Now-playing pill ───────── */
   .yt-wrap {
     position: absolute; top: calc(5dvh + 270px); left: 80px; z-index: 4;
     display: inline-flex; align-items: center; gap: 9px;
@@ -316,13 +306,13 @@
     .person-wrap { height: 44vh; }
     .girl-wrap   { height: 60vh; }
     .roof-wrap   { height: 52vh; }
-    .left-stack { bottom: 18%; margin-right: 14px; gap: 14px; }
+    .left-stack { margin-bottom: 12px; gap: 10px; }
     .eq { height: 38px; padding: 0 13px; gap: 8px; }
     .eq-label { font-size: 13px; }
     #equalizer { width: 90px; height: 20px; }
-    .socials { gap: 8px; }
-    .social  { font-size: 13px; padding: 5px 11px 5px 8px; gap: 7px; }
-    .social-icon { width: 15px; height: 15px; }
+    .socials { gap: 6px; }
+    .social  { font-size: 12px; padding: 4px 10px 4px 7px; gap: 6px; }
+    .social-icon { width: 14px; height: 14px; }
     .person-wrap::before, .girl-wrap::before { filter: blur(20px); }
     .roof-wrap::before { filter: blur(22px); }
     .signature-text { font-size: clamp(20px, 3.2vw, 32px); }
@@ -335,14 +325,13 @@
     .person-wrap { height: 32vh; right: 45%; }
     .girl-wrap   { height: 44vh; left: 30%; margin-right: 0; }
     .roof-wrap   { height: 22vh; }
-    .left-stack { bottom: 14%; margin-right: 8px; gap: 10px; }
-    .eq { height: 32px; padding: 0 10px; gap: 6px; }
-    .eq-label { font-size: 11px; }
-    #equalizer { width: 70px; height: 16px; }
-    .socials { gap: 5px; }
-    .socials::after { display: none; }
-    .social { font-size: 10px; padding: 4px 8px 4px 6px; gap: 4px; }
-    .social-icon { width: 12px; height: 12px; }
+    .left-stack { margin-bottom: 10px; gap: 8px; }
+    .eq { height: 30px; padding: 0 10px; gap: 6px; }
+    .eq-label { font-size: 10px; }
+    #equalizer { width: 60px; height: 14px; }
+    .socials { gap: 4px; }
+    .social { font-size: 9px; padding: 3px 8px 3px 5px; gap: 4px; }
+    .social-icon { width: 11px; height: 11px; }
     .person-wrap::before, .girl-wrap::before { filter: blur(16px); }
     .roof-wrap::before { filter: blur(18px); }
     .signature { bottom: 3%; }
@@ -355,10 +344,11 @@
     .girl-wrap   { height: 40vh; }
     .roof-wrap   { height: 20vh; }
     .yt-wrap { font-size: 9px; padding: 0 9px; height: 24px; }
-    .left-stack { bottom: 12%; gap: 8px; }
-    .eq { height: 28px; padding: 0 8px; }
-    #equalizer { width: 60px; height: 14px; }
-    .social { font-size: 9px; padding: 3px 7px 3px 5px; }
+    .left-stack { margin-bottom: 8px; gap: 6px; }
+    .eq { height: 26px; padding: 0 8px; }
+    #equalizer { width: 52px; height: 12px; }
+    .social { font-size: 8px; padding: 3px 6px 3px 4px; }
+    .social-icon { width: 10px; height: 10px; }
     .signature-text { font-size: 16px; }
   }
 
@@ -368,13 +358,12 @@
     .person-wrap { height: 72vh; }
     .girl-wrap   { height: 88vh; }
     .roof-wrap   { height: 70vh; }
-    .left-stack { bottom: 16%; margin-right: 10px; gap: 10px; }
+    .left-stack { margin-bottom: 10px; gap: 8px; }
     .eq { height: 30px; padding: 0 10px; }
-    #equalizer { width: 70px; height: 16px; }
+    #equalizer { width: 60px; height: 14px; }
     .socials { gap: 4px; }
-    .socials::after { display: none; }
-    .social { font-size: 10px; padding: 3px 8px 3px 6px; gap: 4px; }
-    .social-icon { width: 12px; height: 12px; }
+    .social { font-size: 9px; padding: 3px 7px 3px 5px; gap: 4px; }
+    .social-icon { width: 11px; height: 11px; }
     .signature-text { font-size: clamp(18px, 2.6vw, 24px); }
   }
 
@@ -412,7 +401,7 @@
        src="https://raw.githubusercontent.com/BlackStar1991/Pictures-for-sharing-/master/Japan/person.png"
        alt="man">
 
-  <!-- One flex column: eq on top, socials below — never overlap -->
+  <!-- Equalizer + socials, above the boy's head -->
   <div class="left-stack">
     <div class="eq">
       <span class="eq-label">音</span>
@@ -453,25 +442,16 @@
 </div>
 
 <script>
-/* ============================================================
-   DEVICE TIER
-   ============================================================ */
 const IS_MOBILE =
   /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ||
   window.innerWidth < 700;
 
-/* ============================================================
-   HARD DISABLE SCROLL
-   ============================================================ */
 function killScroll(e) { if (e.cancelable) e.preventDefault(); }
 document.addEventListener("touchmove", killScroll, { passive: false });
 document.addEventListener("wheel", killScroll, { passive: false });
 document.addEventListener("gesturestart", killScroll, { passive: false });
 window.addEventListener("scroll", () => { window.scrollTo(0, 0); }, { passive: true });
 
-/* ============================================================
-   PNG PRE-DOWNSCALE
-   ============================================================ */
 function downscaleImg(imgEl, maxW, maxH) {
   const doIt = () => {
     try {
@@ -498,29 +478,20 @@ function downscaleImg(imgEl, maxW, maxH) {
   const capDesktop = { p: 900,  g: 1200, r: 1000 };
   const capMobile  = { p: 500,  g: 650,  r: 550  };
   const cap = IS_MOBILE ? capMobile : capDesktop;
-
   downscaleImg(document.getElementById("personImg"), cap.p, cap.p);
   downscaleImg(document.getElementById("girlImg"),   cap.g, cap.g);
   downscaleImg(document.getElementById("roofImg"),   cap.r, cap.r);
 })();
 
-/* ============================================================
-   AUDIO CONFIG
-   ============================================================ */
 const AUDIO_SOURCE = IS_MOBILE ? "mp3" : "auto";
-
 const YT_VIDEO_ID     = "arpYrtPAmMw";
 const YT_START_SEC    = 47;
 const YT_WATCHDOG_MS  = 8000;
 const FADE_SECONDS    = 5;
-
 const MP3_TRACKS = [
   "https://cdn.jsdelivr.net/gh/pratrx-web/its_pratrx@main/videos/dido.mp3"
 ];
 
-/* ============================================================
-   SHARED AUDIO STATE
-   ============================================================ */
 const audioState = { bass: 0, mid: 0, treble: 0, beat: 0, active: false };
 let currentSource = null;
 let volumeFadeInterval = null;
@@ -550,9 +521,6 @@ function fadeVolume(setVol, onDone) {
   }, stepMs);
 }
 
-/* ============================================================
-   EQUALIZER
-   ============================================================ */
 const eqCanvas = document.getElementById("equalizer");
 const eqCtx = eqCanvas.getContext("2d");
 const BAR_COUNT = IS_MOBILE ? 12 : 22;
@@ -574,7 +542,6 @@ function drawEq(t) {
   eqCtx.clearRect(0, 0, W, H);
   const barW = (W / BAR_COUNT) * 0.7;
   const gap  = (W - barW * BAR_COUNT) / (BAR_COUNT - 1);
-
   for (let i = 0; i < BAR_COUNT; i++) {
     let v;
     if (audioState.active) {
@@ -602,9 +569,6 @@ requestAnimationFrame(eqLoop);
 
 document.addEventListener("visibilitychange", () => { paused = document.hidden; });
 
-/* ============================================================
-   YOUTUBE CONTROLLER
-   ============================================================ */
 let ytPlayer = null;
 let ytPlayerState = -1;
 let ytUnmuted = false;
@@ -718,9 +682,6 @@ function ytSimLoop() {
 }
 requestAnimationFrame(ytSimLoop);
 
-/* ============================================================
-   MP3 CONTROLLER
-   ============================================================ */
 let audioEl = null;
 let audioCtx = null;
 let analyser = null;
@@ -736,7 +697,6 @@ function switchToMP3(reason) {
   currentSource = "mp3";
   audioState.active = false;
   setLabel("loading…");
-
   audioEl = new Audio();
   audioEl.crossOrigin = "anonymous";
   audioEl.loop = true;
@@ -744,7 +704,6 @@ function switchToMP3(reason) {
   audioEl.src = MP3_TRACKS[0];
   audioEl.muted = true;
   audioEl.volume = 1;
-
   audioEl.addEventListener("canplaythrough", onMp3Ready, { once: true });
   audioEl.addEventListener("error", () => setLabel("mp3 failed", true));
   audioEl.load();
@@ -783,13 +742,11 @@ function analyserTick() {
   requestAnimationFrame(analyserTick);
   if (!analyser || paused) return;
   analyser.getByteFrequencyData(dataArr);
-
   const bassEnd = 3, midEnd = 9;
   let bSum = 0, mSum = 0, tSum = 0;
   for (let i = 0; i < bassEnd; i++) bSum += dataArr[i];
   for (let i = bassEnd; i < midEnd; i++) mSum += dataArr[i];
   for (let i = midEnd; i < dataArr.length; i++) tSum += dataArr[i];
-
   const b = bSum / (bassEnd * 255);
   const m = mSum / ((midEnd - bassEnd) * 255);
   const t = tSum / ((dataArr.length - midEnd) * 255);
@@ -797,7 +754,6 @@ function analyserTick() {
   audioState.bass   = smooth(audioState.bass, b);
   audioState.mid    = smooth(audioState.mid, m);
   audioState.treble = smooth(audioState.treble, t);
-
   if (beatCooldown > 0) beatCooldown--;
   const delta = b - prevBass;
   if (b > 0.32 && delta > 0.13 && beatCooldown <= 0) {
@@ -819,9 +775,6 @@ function unmuteMp3() {
   } catch (e) {}
 }
 
-/* ============================================================
-   BOOT
-   ============================================================ */
 if (AUDIO_SOURCE === "mp3") switchToMP3("mobile-default");
 else startYouTube();
 
